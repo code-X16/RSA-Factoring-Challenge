@@ -1,0 +1,31 @@
+import sys
+
+
+def factorize(n):
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return i, n // i
+    return None
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        return
+
+    file_path = sys.argv[1]
+
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                n = int(line.strip())
+                factors = factorize(n)
+                if factors:
+                    p, q = factors
+                    print(f"{n}={p}*{q}")
+    except FileNotFoundError:
+        print(f"File '{file_path}' not found.")
+
+
+if __name__ == '__main__':
+    main()
